@@ -36,13 +36,13 @@ This should run all tests located in the `test` directory.
 
 ## TODOs
 
-- [] handle loading state
-- [] error handling (eg no such bin)
-- [] css (ie make less hideous)
-- [] require output card without adding it to the dashboard (we add it
+- [ ] handle loading state
+- [ ] error handling (eg no such bin)
+- [ ] css (ie make less hideous)
+- [ ] require output card without adding it to the dashboard (we add it
   ourselves)
-- [] load data initially in a sane way in glazier
-- [] get `container_test` working in glazier environment (it currently depends
+- [ ] load data initially in a sane way in glazier
+- [ ] get `container_test` working in glazier environment (it currently depends
   on fullxhr service)
 
 
