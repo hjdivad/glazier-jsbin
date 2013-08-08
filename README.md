@@ -35,14 +35,16 @@ This should run all tests located in the `test` directory.
   line in `conductor.js.html`.
 
 ## TODOs
+- handle loading state
+- error handling (eg no such bin)
+- css (ie make less hideous)
 
-- [ ] handle loading state
-- [ ] error handling (eg no such bin)
-- [ ] css (ie make less hideous)
-- [ ] require output card without adding it to the dashboard (we add it
+### Glazier Integration
+- load data initially in a sane way in glazier (eg let repository admins
+  configure an initial jsbin to load)
+- require output card without adding it to the dashboard (we add it
   ourselves)
-- [ ] load data initially in a sane way in glazier
-- [ ] get `container_test` working in glazier environment (it currently depends
+- get `container_test` working in glazier environment (it currently depends
   on fullxhr service)
 
 
