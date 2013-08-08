@@ -1,0 +1,15 @@
+{{#if HTMLVisible}}
+  {{view Ember.TextArea id="html" valueBinding="html"}}
+{{/if}}
+
+{{#if CSSVisible}}
+  {{view Ember.TextArea id="css" valueBinding="css"}}
+{{/if}}
+
+{{#if JSVisible}}
+  {{view Ember.TextArea id="js" valueBinding="js"}}
+{{/if}}
+
+{{! output visibility must be handled separately as we cannot just rerender
+    iframes }}
+{{render output}}

@@ -1,113 +1,49 @@
-glazier-card-bootstrap
-======================
+# Glazier JSBin Card
 
-This project offers a starting point for developing new [glazier](https://github.com/yapplabs/glazier) cards.  Note this is a work in progress.  In the future we plan to have
-a more robust development environment, processes, generators etc.  But for now, this project offers a lightweight,
-relatively painless way to start developing cards.
-
-## Steps for developing a glazier card from this repo
-
-1.  Clone this repo
-
-  As present, to run cards, you will need to place them within the cards directory of the glazier instance you are running.  We suggest you clone this repo outside of glazier, then simlink your card dir into the glazier/cards dir to minimizing versioning issues between separate projects.
-
-2.  Rename the project
-
-        * rename the enclosing directory
-        * edit the name-related properties in package.json (including name, glazier.Config.shortname, glazier.Config.repositoryName, repository.url)
-   
-3.  If you plan to use Ember.js to develop your card: 
-
-        * copy the files in the /ember-app-files dir to the /app dir
-        * in cards.js uncomment the ember and handlebars js files:
-  
-        Conductor.require('/vendor/handlebars.js');
-        Conductor.require('/vendor/ember-latest.js');
-
-  If you are not using Ember, you may delete the /ember-app-files directory and the require statements.
-
-4. Symlink your card dir 
-
-        cd to your-glazier-installation-dir/cards/ 
-        ln -s /path/to/your-glazier-card-dir
-
-5. Ingest your card
-
-        # in `glazier/`
-        grunt ingestCards
-    
-6. Register the card type with your repository dashboard
-
-  We will make this easier in the future, but for now this is done directly from the Rails console as follows:
-
-        # in glazier/glazier-server/
-        bundle exec rails console
-
-        # add the Pane to the repository dashboard of your choosing
-        # for instance to add to the yapplabs/glazier dashboard, do the following:
-        dashboard = Dashboard.find_or_bootstrap('yapplabs/glazier')
-
-        # if your card's name in package.json is 'my-card'
-        dashboard.add_pane('my-card')
+A card for loading and displaying jsbins in [glazier][].
 
 
-  note - to remove a card from a dashboard, use:
+## Installation (adding to glazier)
 
-    dashboard.remove_pane(card_type_name)
+1. Clone this repo.
+2. In your glazier/cards directory, symlink `cards/jsbin` and
+   `cards/jsbin-output` as `glazier-jsbin` and `glazier-jsbin-output`
+   respectively.
+3. In glazier, `grunt ingestCards`.
+4. You can now `add_pane "glazier-jsbin"` to a dashboard.
 
-  In your browser, navigate to your repository page.  Your card should appear there.
+Note that for the card to function properly, you need to load data of the form
+`{ id: <jsbinId> }`.  Probably the right way to do this is to use glazier's
+admin data service or equivalent.
 
-## Developing a Glazier Card
+## Development (working on this card)
 
-###Adding Services to your Card
+This repository contains two cards: these instructions apply to either of them.
 
-To add a service, in this example the FullXhrService, do the following:
+In the root card directory (eg `cards/jsbin`), do the following:
 
-1. Add service in `package.json` `glazierConfig` property
+1. Run `npm install` if necessary.
+2. Run `grunt autotest`.
+3. Navigate to `http://localhost:8000`
 
-    {
-      ...
-      "glazierConfig": {
-        "consumes": [
-          ...
-          "fullXhr"
-        ],
-        ...
-    }
-
-2. Add an entry in your cards `consumers` property.  For instance to add the `fullXhr`
- service to your card:
-
-    var card = Conductor.card({
-        ...
-        consumers: {
-            ...,
-            'fullXhr': Conductor.OasisConsumer
-        }
-    }
-
+This should run all tests located in the `test` directory.
 
 ## Debugging
 
-### Templates not found
+- It sometimes helps to debug Oasis initialization.  You can either
+  `requireModule("oasis/logger").enable()` or uncomment the `Logger.enable()`
+  line in `conductor.js.html`.
 
-`Assertion failed: Module: 'templates' not found`
-`Uncaught Error: Module: 'templates' not found.`
+## TODOs
 
-You must have a /templates dir and at least one template, otherwise the
-templates module won't get required and you will get an error (or if not
-using templates can get rid of the require templates in card (todo: verify and fix)
+- [] handle loading state
+- [] error handling (eg no such bin)
+- [] css (ie make less hideous)
+- [] require output card without adding it to the dashboard (we add it
+  ourselves)
+- [] load data initially in a sane way in glazier
+- [] get `container_test` working in glazier environment (it currently depends
+  on fullxhr service)
 
-### Mysterious Syntax Error
 
-Check that your import and export statements are correct, e.g.:
-
-import Resolver from 'resolver';
-...
-export default card;
-
-You can verify this is the problem by looking in the generated card,
-`/dist/card.js`, where you will see statements like:
-
- __exports__ ...
- __import__ ...
+[glazier]: https://github.com/yapplabs/glazier

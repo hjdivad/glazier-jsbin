@@ -1,0 +1,19 @@
+@import "compass/css3/box-sizing";
+
+#card {
+  height:500px;
+  width:500px;
+
+  > div {
+    height: 100%;
+  }
+}
+
+#panes {
+  textarea, div {
+    @include box-sizing(border-box);
+    display: block;
+    float: left;
+    height: 100%;
+  }
+}
